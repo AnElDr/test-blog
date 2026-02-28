@@ -24,35 +24,15 @@
         @csrf
         @method('PUT')
 
-        {{-- English Section --}}
-        <h3 style="margin:0 0 10px;">English</h3>
-
-        <label>{{ __('messages.title') }} (EN)</label>
+        <label>{{ __('messages.title') }}</label>
         <input type="text"
-               name="title_en"
-               value="{{ old('title_en', $news->title_en) }}">
+               name="title"
+               value="{{ old('title', $news->title) }}">
 
-        <label>{{ __('messages.content') }} (EN)</label>
-        <textarea name="content_en" rows="6">
-{{ old('content_en', $news->content_en) }}</textarea>
+        <label>{{ __('messages.content') }}</label>
+        <textarea name="content" rows="7">
+{{ old('content', $news->content) }}</textarea>
 
-        <hr style="border:0; border-top:1px solid var(--line); margin:16px 0;">
-
-        {{-- Latvian Section --}}
-        <h3 style="margin:0 0 10px;">Latviešu</h3>
-
-        <label>{{ __('messages.title') }} (LV)</label>
-        <input type="text"
-               name="title_lv"
-               value="{{ old('title_lv', $news->title_lv) }}">
-
-        <label>{{ __('messages.content') }} (LV)</label>
-        <textarea name="content_lv" rows="6">
-{{ old('content_lv', $news->content_lv) }}</textarea>
-
-        <hr style="border:0; border-top:1px solid var(--line); margin:16px 0;">
-
-        {{-- Common Fields --}}
         <label>{{ __('messages.date') }}</label>
         <input type="date"
                name="published_at"
@@ -75,8 +55,7 @@
                     {{ __('messages.current_image') }}
                 </div>
                 <img class="thumb"
-                     src="{{ asset('storage/'.$news->image_path) }}"
-                     alt="">
+                     src="{{ asset('storage/'.$news->image_path) }}">
             </div>
         @endif
 

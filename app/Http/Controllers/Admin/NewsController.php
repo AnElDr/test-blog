@@ -23,17 +23,13 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title_en' => ['nullable','string','max:255'],
-            'title_lv' => ['nullable','string','max:255'],
-            'content_en' => ['nullable','string'],
-            'content_lv' => ['nullable','string'],
-
+            'title' => ['required','string','max:255'],
+            'content' => ['required','string'],
             'published_at' => ['required','date'],
             'is_active' => ['nullable','boolean'],
             'image' => ['nullable','image','max:2048'],
         ]);
 
-        // Require at least one title + one content
         if (empty($data['title_en']) && empty($data['title_lv'])) {
             return back()
                 ->withErrors(['title_en' => 'Provide at least one title (EN or LV).'])
@@ -74,19 +70,6 @@ class NewsController extends Controller
             'is_active' => ['nullable','boolean'],
             'image' => ['nullable','image','max:2048'],
         ]);
-
-        // Require at least one title + one content
-        if (empty($data['title_en']) && empty($data['title_lv'])) {
-            return back()
-                ->withErrors(['title_en' => 'Provide at least one title (EN or LV).'])
-                ->withInput();
-        }
-
-        if (empty($data['content_en']) && empty($data['content_lv'])) {
-            return back()
-                ->withErrors(['content_en' => 'Provide at least one content (EN or LV).'])
-                ->withInput();
-        }
 
         $data['is_active'] = (bool) ($request->input('is_active', false));
 
