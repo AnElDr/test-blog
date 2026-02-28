@@ -1,35 +1,29 @@
-@extends('layouts.front')
+@extends('layouts.app')
 
 @section('title', 'News')
 
 @section('content')
-    <h1 class="page-title">Latest news</h1>
-    <p class="subtle">Only active posts are shown here.</p>
+    <h1>Latest News</h1>
 
-    <div class="grid" style="margin-top:14px;">
-        @forelse($news as $item)
-            <a class="card" href="{{ route('front.news.show', $item) }}">
-                @if($item->image_path)
-                    <img class="thumb" src="{{ asset('storage/'.$item->image_path) }}" alt="">
-                @endif
+    @foreach($news as $item)
+        <div class="card">
+            <h2>
+                <a href="{{ route('front.news.show', $item) }}">
+                    {{ $item->title }}
+                </a>
+            </h2>
 
-                <div class="card-body">
-                    <h2>{{ $item->title }}</h2>
-                    <div class="meta">Published: {{ $item->published_at->format('Y-m-d') }}</div>
-                    <div class="excerpt">{{ \Illuminate\Support\Str::limit($item->content, 140) }}</div>
-                </div>
-            </a>
-        @empty
-            <div class="card" style="grid-column: span 12;">
-                <div class="card-body">
-                    <h2>No news yet</h2>
-                    <p class="subtle">Create one in the Admin panel.</p>
-                </div>
+            <div class="meta">
+                Published: {{ $item->published_at->format('Y-m-d') }}
             </div>
-        @endforelse
-    </div>
 
-    <div class="pagination">
-        {{ $news->links() }}
-    </div>
+            @if($item->image_path)
+                <img class="thumb" src="{{ asset('storage/'.$item->image_path) }}">
+            @endif
+
+            <p>{{ \Illuminate\Support\Str::limit($item->content, 150) }}</p>
+        </div>
+    @endforeach
+
+    {{ $news->links() }}
 @endsection

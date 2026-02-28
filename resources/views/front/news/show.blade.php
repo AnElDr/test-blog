@@ -1,20 +1,21 @@
-@extends('layouts.front')
+@extends('layouts.app')
 
 @section('title', $news->title)
 
 @section('content')
-    <p>
-        <a class="btn" href="{{ route('front.home') }}">← Back to news</a>
-    </p>
+    <a class="btn" href="{{ route('front.home') }}">← Back</a>
 
-    <article class="article">
+    <div class="card">
         <h1>{{ $news->title }}</h1>
-        <div class="meta">Published: {{ $news->published_at->format('Y-m-d') }}</div>
+
+        <div class="meta">
+            Published: {{ $news->published_at->format('Y-m-d') }}
+        </div>
 
         @if($news->image_path)
-            <img src="{{ asset('storage/'.$news->image_path) }}" alt="">
+            <img src="{{ asset('storage/'.$news->image_path) }}">
         @endif
 
         <p>{!! nl2br(e($news->content)) !!}</p>
-    </article>
+    </div>
 @endsection
