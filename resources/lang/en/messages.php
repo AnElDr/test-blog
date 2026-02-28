@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'home' => 'Home',
+    'admin' => 'Admin',
+    'manage_news' => 'Manage News',
+    'add_news' => '+ Add News',
+    'title' => 'Title',
+    'date' => 'Date',
+    'active' => 'Active',
+    'image' => 'Image',
+    'actions' => 'Actions',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'create_news' => 'Create News',
+    'edit_news' => 'Edit News',
+    'save' => 'Save',
+    'update' => 'Update',
+    'cancel' => 'Cancel',
+    'fix_errors' => 'Please fix the following:',
+    'image_optional' => 'Image (optional)',
+    'current_image' => 'Current image:',
+    'content' => 'Content',
+];

@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'home' => 'Sākums',
+    'admin' => 'Administrācija',
+    'manage_news' => 'Pārvaldīt Jaunumus',
+    'add_news' => '+ Pievienot Jaunumu',
+    'title' => 'Virsraksts',
+    'date' => 'Datums',
+    'active' => 'Aktīvs',
+    'image' => 'Attēls',
+    'actions' => 'Darbības',
+    'yes' => 'Jā',
+    'no' => 'Nē',
+    'edit' => 'Rediģēt',
+    'delete' => 'Dzēst',
+    'create_news' => 'Izveidot Jaunumu',
+    'edit_news' => 'Rediģēt Jaunumu',
+    'save' => 'Saglabāt',
+    'update' => 'Atjaunināt',
+    'cancel' => 'Atcelt',
+    'fix_errors' => 'Lūdzu izlabojiet sekojošo:',
+    'image_optional' => 'Attēls (neobligāts)',
+    'current_image' => 'Pašreizējais attēls:',
+    'content' => 'Saturs',
+];

@@ -145,12 +145,12 @@
         <nav class="links">
             <a class="link {{ request()->routeIs('front.*') ? 'active' : '' }}"
             href="{{ route('front.home') }}">
-                {{ app()->getLocale() === 'lv' ? 'Sākums' : 'Home' }}
+                {{ __('messages.home') }}
             </a>
 
             <a class="link {{ request()->routeIs('admin.*') ? 'active' : '' }}"
             href="{{ route('admin.news.index') }}">
-                Admin
+                {{ __('messages.admin') }}
             </a>
 
             @php($current = app()->getLocale())
