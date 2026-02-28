@@ -15,7 +15,6 @@ use App\Models\News;
 |
 */
 
-// Frontend
 Route::get('/', function () {
     $news = News::where('is_active', true)
         ->orderByDesc('published_at')
@@ -29,7 +28,6 @@ Route::get('/news/{news}', function (News $news) {
     return view('front.news.show', compact('news'));
 })->name('front.news.show');
 
-// Backend (admin)
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('news', AdminNewsController::class);
 });
