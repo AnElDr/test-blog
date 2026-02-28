@@ -17,17 +17,29 @@
     @endif
 
     <div class="card">
-        <form method="POST"
-              action="{{ route('admin.news.update', $news) }}"
-              enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.news.update', $news) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
-            <label>Title</label>
-            <input name="title" value="{{ old('title', $news->title) }}" placeholder="News title">
+            <h3 style="margin:0 0 10px;">English</h3>
 
-            <label>Content</label>
-            <textarea name="content" rows="7" placeholder="Write news content...">{{ old('content', $news->content) }}</textarea>
+            <label>Title (EN)</label>
+            <input name="title_en" value="{{ old('title_en', $news->title_en) }}" placeholder="English title">
+
+            <label>Content (EN)</label>
+            <textarea name="content_en" rows="6" placeholder="English content...">{{ old('content_en', $news->content_en) }}</textarea>
+
+            <hr style="border:0; border-top:1px solid var(--line); margin:16px 0;">
+
+            <h3 style="margin:0 0 10px;">Latvian</h3>
+
+            <label>Title (LV)</label>
+            <input name="title_lv" value="{{ old('title_lv', $news->title_lv) }}" placeholder="Latviešu virsraksts">
+
+            <label>Content (LV)</label>
+            <textarea name="content_lv" rows="6" placeholder="Saturs latviski...">{{ old('content_lv', $news->content_lv) }}</textarea>
+
+            <hr style="border:0; border-top:1px solid var(--line); margin:16px 0;">
 
             <label>Date</label>
             <input type="date"
@@ -50,7 +62,6 @@
                     <img class="thumb" src="{{ asset('storage/'.$news->image_path) }}" alt="">
                 </div>
             @endif
-
             <input type="file" name="image" accept="image/*">
 
             <div style="display:flex; gap:10px; margin-top:12px;">

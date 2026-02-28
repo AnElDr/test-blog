@@ -1,21 +1,32 @@
 @extends('layouts.app')
 
-@section('title', $news->title)
+@section('title', $news->getTitle())
 
 @section('content')
-    <a class="btn" href="{{ route('front.home') }}">← Back</a>
+    <p style="margin-top:0;">
+        <a class="btn" href="{{ route('front.home') }}">
+            ← {{ app()->getLocale() === 'lv' ? 'Atpakaļ' : 'Back' }}
+        </a>
+    </p>
 
     <div class="card">
-        <h1>{{ $news->title }}</h1>
+        <h1 style="margin:0 0 8px;">
+            {{ $news->getTitle() }}
+        </h1>
 
         <div class="meta">
-            Published: {{ $news->published_at->format('Y-m-d') }}
+            {{ app()->getLocale() === 'lv' ? 'Datums:' : 'Date:' }}
+            {{ $news->published_at->format('Y-m-d') }}
         </div>
 
         @if($news->image_path)
-            <img src="{{ asset('storage/'.$news->image_path) }}">
+            <div style="margin: 12px 0;">
+                <img src="{{ asset('storage/'.$news->image_path) }}" style="width:100%; max-height:420px; object-fit:cover; border-radius:14px; border:1px solid var(--line);" alt="">
+            </div>
         @endif
 
-        <p>{!! nl2br(e($news->content)) !!}</p>
+        <p style="margin:0; line-height:1.7;">
+            {!! nl2br(e($news->getContent())) !!}
+        </p>
     </div>
 @endsection

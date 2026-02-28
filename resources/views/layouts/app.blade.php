@@ -33,7 +33,6 @@
             padding: 20px;
         }
 
-        /* NAV */
         .nav {
             position: sticky;
             top:0;
@@ -73,7 +72,6 @@
             border-color:rgba(122,162,255,.5);
         }
 
-        /* CARDS */
         .card {
             background:var(--card);
             border:1px solid var(--line);
@@ -146,10 +144,26 @@
 
         <nav class="links">
             <a class="link {{ request()->routeIs('front.*') ? 'active' : '' }}"
-               href="{{ route('front.home') }}">Home</a>
+            href="{{ route('front.home') }}">
+                {{ app()->getLocale() === 'lv' ? 'Sākums' : 'Home' }}
+            </a>
 
             <a class="link {{ request()->routeIs('admin.*') ? 'active' : '' }}"
-               href="{{ route('admin.news.index') }}">Admin</a>
+            href="{{ route('admin.news.index') }}">
+                Admin
+            </a>
+
+            @php($current = app()->getLocale())
+
+            <a class="link {{ $current === 'en' ? 'active' : '' }}"
+            href="{{ route('lang.switch', 'en') }}">
+                EN
+            </a>
+
+            <a class="link {{ $current === 'lv' ? 'active' : '' }}"
+            href="{{ route('lang.switch', 'lv') }}">
+                LV
+            </a>
         </nav>
     </div>
 </header>

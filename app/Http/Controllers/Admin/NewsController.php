@@ -3,41 +3,48 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\News;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $items = News::orderByDesc('published_at')->paginate(10);
         return view('admin.news.index', compact('items'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.news.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title' => ['required','string','max:255'],
-            'content' => ['required','string'],
+            'title_en' => ['nullable','string','max:255'],
+            'title_lv' => ['nullable','string','max:255'],
+            'content_en' => ['nullable','string'],
+            'content_lv' => ['nullable','string'],
+
             'published_at' => ['required','date'],
             'is_active' => ['nullable','boolean'],
             'image' => ['nullable','image','max:2048'],
         ]);
+
+        // Require at least one title + one content
+        if (empty($data['title_en']) && empty($data['title_lv'])) {
+            return back()
+                ->withErrors(['title_en' => 'Provide at least one title (EN or LV).'])
+                ->withInput();
+        }
+
+        if (empty($data['content_en']) && empty($data['content_lv'])) {
+            return back()
+                ->withErrors(['content_en' => 'Provide at least one content (EN or LV).'])
+                ->withInput();
+        }
 
         $data['is_active'] = (bool) ($request->input('is_active', false));
 
@@ -50,34 +57,36 @@ class NewsController extends Controller
         return redirect()->route('admin.news.index')->with('success', 'News created.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    // public function show(string $id)
-    // {
-        
-    // }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(News $news)
     {
         return view('admin.news.edit', compact('news'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, News $news)
     {
         $data = $request->validate([
-            'title' => ['required','string','max:255'],
-            'content' => ['required','string'],
+            'title_en' => ['nullable','string','max:255'],
+            'title_lv' => ['nullable','string','max:255'],
+            'content_en' => ['nullable','string'],
+            'content_lv' => ['nullable','string'],
+
             'published_at' => ['required','date'],
             'is_active' => ['nullable','boolean'],
             'image' => ['nullable','image','max:2048'],
         ]);
+
+        // Require at least one title + one content
+        if (empty($data['title_en']) && empty($data['title_lv'])) {
+            return back()
+                ->withErrors(['title_en' => 'Provide at least one title (EN or LV).'])
+                ->withInput();
+        }
+
+        if (empty($data['content_en']) && empty($data['content_lv'])) {
+            return back()
+                ->withErrors(['content_en' => 'Provide at least one content (EN or LV).'])
+                ->withInput();
+        }
 
         $data['is_active'] = (bool) ($request->input('is_active', false));
 
@@ -103,12 +112,4 @@ class NewsController extends Controller
 
         return redirect()->route('admin.news.index')->with('success', 'News deleted.');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    // public function destroy(string $id)
-    // {
-    //     //
-    // }
 }

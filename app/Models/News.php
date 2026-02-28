@@ -10,8 +10,10 @@ class News extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'content',
+        // 'title',
+        // 'content',
+        'title_en', 'content_en',
+        'title_lv', 'content_lv',
         'published_at',
         'is_active',
         'image_path',
@@ -21,5 +23,21 @@ class News extends Model
     'published_at' => 'date',
     'is_active' => 'boolean',
     ];
-    
+
+    public function getTitle(): string
+    {
+        $locale = app()->getLocale();
+        return $locale === 'lv'
+            ? ($this->title_lv ?? $this->title_en ?? $this->title ?? '')
+            : ($this->title_en ?? $this->title_lv ?? $this->title ?? '');
+    }
+
+    public function getContent(): string
+    {
+        $locale = app()->getLocale();
+        return $locale === 'lv'
+            ? ($this->content_lv ?? $this->content_en ?? $this->content ?? '')
+            : ($this->content_en ?? $this->content_lv ?? $this->content ?? '');
+    }
+
 }

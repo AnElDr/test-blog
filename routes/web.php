@@ -33,3 +33,9 @@ Route::get('/news/{news}', function (News $news) {
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('news', AdminNewsController::class);
 });
+
+Route::get('/lang/{locale}', function (string $locale) {
+    abort_unless(in_array($locale, ['en', 'lv']), 404);
+    session(['locale' => $locale]);
+    return back();
+})->name('lang.switch');
