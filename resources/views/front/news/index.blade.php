@@ -26,7 +26,7 @@
 
             @if($item->image_path)
                 <div style="margin: 10px 0;">
-                    <img class="thumb" src="{{ asset('storage/'.$item->image_path) }}" alt="">
+                    <img class="thumb" src="{{ asset($item->image_path) }}">
                 </div>
             @endif
 

@@ -54,8 +54,7 @@
                 <div class="meta">
                     {{ __('messages.current_image') }}
                 </div>
-                <img class="thumb"
-                     src="{{ asset('storage/'.$news->image_path) }}">
+                <img class="thumb" src="{{ asset($news->image_path) }}" alt="">
             </div>
         @endif
 

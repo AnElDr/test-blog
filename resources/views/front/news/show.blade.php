@@ -21,7 +21,8 @@
 
         @if($news->image_path)
             <div style="margin: 12px 0;">
-                <img src="{{ asset('storage/'.$news->image_path) }}" style="width:100%; max-height:420px; object-fit:cover; border-radius:14px; border:1px solid var(--line);" alt="">
+                <img src="{{ asset($item->image_path) }}"
+                    style="width:100%; max-height:420px; object-fit:cover; border-radius:14px; border:1px solid var(--line);" alt="">
             </div>
         @endif
 

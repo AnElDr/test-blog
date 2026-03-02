@@ -30,22 +30,16 @@ class NewsController extends Controller
             'image' => ['nullable','image','max:2048'],
         ]);
 
-        if (empty($data['title_en']) && empty($data['title_lv'])) {
-            return back()
-                ->withErrors(['title_en' => 'Provide at least one title (EN or LV).'])
-                ->withInput();
-        }
-
-        if (empty($data['content_en']) && empty($data['content_lv'])) {
-            return back()
-                ->withErrors(['content_en' => 'Provide at least one content (EN or LV).'])
-                ->withInput();
-        }
-
         $data['is_active'] = (bool) ($request->input('is_active', false));
 
         if ($request->hasFile('image')) {
-            $data['image_path'] = $request->file('image')->store('news', 'public');
+            $file = $request->file('image');
+
+            $filename = time() . '_' . $file->getClientOriginalName();
+
+            $file->move(public_path('uploads/news'), $filename);
+
+            $data['image_path'] = 'uploads/news/' . $filename;
         }
 
         News::create($data);
@@ -61,11 +55,8 @@ class NewsController extends Controller
     public function update(Request $request, News $news)
     {
         $data = $request->validate([
-            'title_en' => ['nullable','string','max:255'],
-            'title_lv' => ['nullable','string','max:255'],
-            'content_en' => ['nullable','string'],
-            'content_lv' => ['nullable','string'],
-
+            'title' => ['required','string','max:255'],
+            'content' => ['required','string'],
             'published_at' => ['required','date'],
             'is_active' => ['nullable','boolean'],
             'image' => ['nullable','image','max:2048'],
@@ -73,11 +64,18 @@ class NewsController extends Controller
 
         $data['is_active'] = (bool) ($request->input('is_active', false));
 
-        if ($request->hasFile('image')) {
-            if ($news->image_path) {
-                Storage::disk('public')->delete($news->image_path);
+       if ($request->hasFile('image')) {
+
+        if ($news->image_path && file_exists(public_path($news->image_path))) {
+                unlink(public_path($news->image_path));
             }
-            $data['image_path'] = $request->file('image')->store('news', 'public');
+
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+
+            $file->move(public_path('uploads/news'), $filename);
+
+            $data['image_path'] = 'uploads/news/' . $filename;
         }
 
         $news->update($data);
